@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.9.0 (1 Jun 2021)
+
+New Features:
+- `DELETE /api/v1/customers/addresses/{id}` added. (`Client::patchAddress($id, $model)`) ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+- Added missing mappings ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+  - `Address::$id`
+  - `Order::$payments`
+- Added the `Payment` model ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+
+## v1.8.3 (4 May 2021)
+
+Bugfixes
+- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API. 
+
+## v1.8.2 (15 Mar 2021)
+
+Bugfixes
+- SoldAmount fixed  ([PR #39](https://github.com/billbeeio/billbee-php-sdk/pull/39))
+
+## v1.8.1 (22 Feb 2021)
+
+New Features
+- PHP 8 added to composer.json
+
 ## 1.8.0 (9 Dec 2019)
 
 New features:

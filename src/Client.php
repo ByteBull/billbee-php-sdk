@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2019 by Billbee GmbH
+ * Copyright 2017 - 2020 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -576,6 +576,9 @@ class Client extends AbstractClient
      */
     public function getOrderByOrderNumber($extRef)
     {
+        if (!strstr($extRef, '%')) {
+            $extRef = urlencode($extRef);
+        }
         return $this->requestGET(
             'orders/findbyextref/' . $extRef,
             [],
@@ -599,6 +602,9 @@ class Client extends AbstractClient
      */
     public function getOrderByPartner($externalId, $partner)
     {
+        if (!strstr($externalId, '%')) {
+            $externalId = urlencode($externalId);
+        }
         return $this->requestGET(
             'orders/find/' . $externalId . '/' . $partner,
             [],
@@ -1407,6 +1413,31 @@ class Client extends AbstractClient
             'customers/' . $customer->id,
             $this->jom->serialize($customer),
             Response\GetCustomerResponse::class
+        );
+    }
+
+    #endregion
+
+    #region PATCH
+
+    /**
+     * Updates one or more fields of an address
+     *
+     * @param int $addressId The internal id of the address
+     * @param array $model The fields to patch
+     *
+     * @return Response\GetCustomerAddressResponse The address
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     *
+     */
+    public function patchAddress($addressId, $model)
+    {
+        return $this->requestPATCH(
+            'customers/addresses/' . $addressId,
+            $model,
+            Response\GetCustomerAddressResponse::class
         );
     }
 
